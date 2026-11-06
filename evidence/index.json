@@ -5,7 +5,7 @@
   "spec": "KAIROS-VZ-EXEC-032 v3.2",
   "playbook": "VERITASETL ZERO Execution Playbook v0.1",
   "scope_p0": "controlled supplier CSV repair on a single Vultr VM",
-  "updated_utc": "2026-11-06T11:58:24Z",
+  "updated_utc": "2026-11-06T14:39:40Z",
   "gates": [
     {
       "gate": "G1",
@@ -18,6 +18,28 @@
       "evidence_file": "evidence/g1/g1_smoke_evidence.json",
       "sha256": "c2d6c2d06e53d2f4bae68f11b2ede6696bc63d74685430159ca37e1f7c1fd084",
       "file_mode": "0o600",
+      "secret_free": true
+    },
+    {
+      "gate": "RR-AT-01",
+      "title": "Pre-execution denial (RR-01 / EA-01)",
+      "status": "PASS",
+      "timestamp_utc": "2026-11-06T14:39:40Z",
+      "provider": "local Vultr VM",
+      "evidence_file": "evidence/rr/RR-AT-01.json",
+      "sha256": "9369a6c84f4ffdb2f1081fc3423bf73c95c338a5bff2150ef89697a1d2d3af1c",
+      "cases_passed": "4/4",
+      "secret_free": true
+    },
+    {
+      "gate": "RR-AT-02",
+      "title": "TOCTOU and stale/revoked authority prevention (RR-02)",
+      "status": "PASS",
+      "timestamp_utc": "2026-11-06T14:39:40Z",
+      "provider": "local Vultr VM",
+      "evidence_file": "evidence/rr/RR-AT-02.json",
+      "sha256": "5fe47687ab2bea5c71195990ade5f617486f70e2069dd17053bb8154ff99e779",
+      "cases_passed": "4/4",
       "secret_free": true
     },
     {

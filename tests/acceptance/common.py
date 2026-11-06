@@ -18,7 +18,7 @@ from packages.dispatcher.dispatcher import GovernedDispatcher
 from tests.security.secret_scan import scan_text
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / "evidence"
+EVIDENCE = Path(os.environ.get("VZ_EVIDENCE_DIR", str(ROOT / "evidence"))).resolve()
 INDEX = EVIDENCE / "index.json"
 PROJECT = "supplier-repair-p0"
 OPERATOR = "rootz-operator"
@@ -90,10 +90,21 @@ class Recorder:
         doc["secret_free"] = not findings
         text = json.dumps(doc, indent=2, default=str) + "\n"
         out = EVIDENCE / "rr" / f"{self.test_id}.json"
+        out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(text, encoding="utf-8")
+        evidence_label = (
+            out.relative_to(ROOT).as_posix()
+            if out.is_relative_to(ROOT)
+            else str(out)
+        )
+        provider = (
+            "local Vultr VM"
+            if socket.gethostname() == "veritasetl-zero"
+            else f"local test environment ({socket.gethostname()})"
+        )
         upsert_index({"gate": self.test_id, "title": self.title, "status": status, "timestamp_utc": doc["timestamp_utc"],
-                      "provider": "local Vultr VM", "evidence_file": out.relative_to(ROOT).as_posix(),
+                      "provider": provider, "evidence_file": evidence_label,
                       "sha256": hashlib.sha256(text.encode()).hexdigest(), "cases_passed": doc["cases_passed"],
                       "secret_free": not findings})
-        print(f"==> {self.test_id}: {status}  ({doc['cases_passed']} cases, evidence: {out.relative_to(ROOT).as_posix()})")
+        print(f"==> {self.test_id}: {status}  ({doc['cases_passed']} cases, evidence: {evidence_label})")
         return 0 if status == "PASS" else 1
