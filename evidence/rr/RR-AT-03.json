@@ -1,0 +1,152 @@
+{
+  "test_id": "RR-AT-03",
+  "title": "Direct worker bypass is blocked",
+  "invariant": "EXEC-INV-01: no execution-capable interface is reachable except via GovernedDispatcher + WorkerAdmission",
+  "status": "PASS",
+  "timestamp_utc": "2026-11-06T11:58:24Z",
+  "environment": {
+    "host": "veritasetl-zero",
+    "python": "3.14.8",
+    "platform": "Linux-7.3.0-10-generic-x86_64-with-glibc2.44"
+  },
+  "cases_passed": "11/11",
+  "cases": [
+    {
+      "case": "C0a",
+      "title": "State machine forbids WORK_PROPOSED -> EXECUTION",
+      "passed": true,
+      "observed": {
+        "skipped": false
+      }
+    },
+    {
+      "case": "C0b",
+      "title": "After DENY: no path to EXECUTION, worker_invoked cannot be set",
+      "passed": true,
+      "observed": {
+        "reach_execution": false,
+        "flag_set": false,
+        "worker_invoked": false
+      }
+    },
+    {
+      "case": "C1",
+      "title": "Direct WorkerRuntime.run() with no ticket is rejected",
+      "passed": true,
+      "observed": {
+        "code": "NO_VALID_ADMISSION_TICKET",
+        "worker_invocations": 0
+      }
+    },
+    {
+      "case": "C2",
+      "title": "Forged AdmissionTicket object is rejected",
+      "passed": true,
+      "observed": {
+        "code": "NO_VALID_ADMISSION_TICKET",
+        "worker_invocations": 0
+      }
+    },
+    {
+      "case": "C3",
+      "title": "Token signed with attacker key is rejected",
+      "passed": true,
+      "observed": {
+        "code": "BAD_SIGNATURE"
+      }
+    },
+    {
+      "case": "C4",
+      "title": "Admission without any dispatch authorization is rejected",
+      "passed": true,
+      "observed": {
+        "code": "NO_VALID_DISPATCH_AUTHORIZATION"
+      }
+    },
+    {
+      "case": "C5",
+      "title": "Token minting outside the single GovernedDispatcher is impossible",
+      "passed": true,
+      "observed": {
+        "issue_with_fake_capability": "PermissionError",
+        "second_claim_issuer": "PermissionError"
+      }
+    },
+    {
+      "case": "C6",
+      "title": "Dispatcher with no authorization -> BLOCKED_PRE_EXECUTION, worker_invoked=false",
+      "passed": true,
+      "observed": {
+        "status": "BLOCKED_PRE_EXECUTION",
+        "reason": "NO_ALLOW_AUTHORIZATION",
+        "worker_invoked": false,
+        "state_trail": [
+          "WORK_PROPOSED",
+          "CONTEXT_BOUND",
+          "AUTHORITY_EVALUATED",
+          "DENY",
+          "NO_DISPATCH"
+        ]
+      }
+    },
+    {
+      "case": "C7",
+      "title": "Forged ALLOW decision is caught by dispatch-time revalidation",
+      "passed": true,
+      "observed": {
+        "status": "BLOCKED_PRE_EXECUTION",
+        "reason": "UNKNOWN_ACTOR",
+        "worker_invoked": false,
+        "state_trail": [
+          "WORK_PROPOSED",
+          "CONTEXT_BOUND",
+          "AUTHORITY_EVALUATED",
+          "REVALIDATE_CURRENT_STATE",
+          "DENY",
+          "NO_DISPATCH"
+        ]
+      }
+    },
+    {
+      "case": "C8",
+      "title": "Static scan: no execution-capable reference outside dispatcher/admission",
+      "passed": true,
+      "observed": {
+        "files_scanned": 15,
+        "violations": []
+      }
+    },
+    {
+      "case": "C9",
+      "title": "Control: legitimate governed dispatch starts the worker exactly once",
+      "passed": true,
+      "observed": {
+        "status": "EXECUTED_AWAITING_VERIFICATION",
+        "reason": "ADMITTED_ONE_TIME",
+        "worker_invoked": true,
+        "state_trail": [
+          "WORK_PROPOSED",
+          "CONTEXT_BOUND",
+          "AUTHORITY_EVALUATED",
+          "REVALIDATE_CURRENT_STATE",
+          "DISPATCH_COMMITTED",
+          "WORKER_ADMITTED",
+          "EXECUTION"
+        ],
+        "output": {
+          "program": "row_count_v1",
+          "rows_total": 3,
+          "data_rows": 2,
+          "header": [
+            "supplier_id",
+            "supplier_name",
+            "amount",
+            "currency"
+          ]
+        },
+        "worker_invocations": 1
+      }
+    }
+  ],
+  "secret_free": true
+}

@@ -1,0 +1,32 @@
+{
+  "gate": "G1_INFERENCE_SMOKE",
+  "timestamp_utc": "2026-11-05T06:12:19.877955+00:00",
+  "provider": "Vultr Serverless Inference",
+  "endpoint": "https://api.vultrinference.com/v1/chat/completions",
+  "model_requested": "deepseek-v4.1-flash-1017",
+  "acceptance": {
+    "http_200": true,
+    "model_match": true,
+    "content_non_empty": true,
+    "exact_ready": true,
+    "usage_captured_if_provided": true,
+    "evidence_secret_free": true
+  },
+  "status": "PASS",
+  "http_status": 200,
+  "model_reported": "deepseek-v4.1-flash-1017",
+  "response_id": "chatcmpl-76762ff5-a2c4-481b-ab9d-9f3ac8c86571",
+  "reply": "READY",
+  "usage": {
+    "prompt_tokens": 37,
+    "completion_tokens": 15,
+    "total_tokens": 52,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 11
+    }
+  },
+  "finish_reason": "stop"
+}

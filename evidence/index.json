@@ -1,0 +1,46 @@
+{
+  "project": "VERITASETL ZERO",
+  "thesis": "Proof-Carrying Supplier Data Repair",
+  "category": "Governed AI Data Operations with Proof-Carrying Execution",
+  "spec": "KAIROS-VZ-EXEC-032 v3.2",
+  "playbook": "VERITASETL ZERO Execution Playbook v0.1",
+  "scope_p0": "controlled supplier CSV repair on a single Vultr VM",
+  "updated_utc": "2026-11-06T11:58:24Z",
+  "gates": [
+    {
+      "gate": "G1",
+      "title": "Vultr Serverless Inference smoke test",
+      "status": "PASS",
+      "timestamp_utc": "2026-11-05T06:12:19.877955+00:00",
+      "provider": "Vultr Serverless Inference",
+      "endpoint": "https://api.vultrinference.com/v1/chat/completions",
+      "model": "deepseek-v4.1-flash-1017",
+      "evidence_file": "evidence/g1/g1_smoke_evidence.json",
+      "sha256": "c2d6c2d06e53d2f4bae68f11b2ede6696bc63d74685430159ca37e1f7c1fd084",
+      "file_mode": "0o600",
+      "secret_free": true
+    },
+    {
+      "gate": "RR-AT-03",
+      "title": "Direct worker bypass is blocked",
+      "status": "PASS",
+      "timestamp_utc": "2026-11-06T11:58:24Z",
+      "provider": "local Vultr VM",
+      "evidence_file": "evidence/rr/RR-AT-03.json",
+      "sha256": "fe8f0ed4266fb7185dfc75b87fc871c00d3fc584111eac058ae838e18ef03806",
+      "cases_passed": "11/11",
+      "secret_free": true
+    },
+    {
+      "gate": "RR-AT-04",
+      "title": "Replay / duplicate dispatch is blocked",
+      "status": "PASS",
+      "timestamp_utc": "2026-11-06T11:58:24Z",
+      "provider": "local Vultr VM",
+      "evidence_file": "evidence/rr/RR-AT-04.json",
+      "sha256": "a4597a20a2db577c563dc1dbf5db4ef37e35b81db3b61233ca55b058e2d4a75c",
+      "cases_passed": "7/7",
+      "secret_free": true
+    }
+  ]
+}

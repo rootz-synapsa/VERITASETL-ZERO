@@ -1,0 +1,4 @@
+supplier_id,supplier_name,tax_id,amount,currency
+ S001 , Alpha Co , 001234 , 1200.5 , THB
+S002,Beta Co,009876,250.00,THB
+S003,Gamma Co,123456,invalid,THB
