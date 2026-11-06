@@ -3,11 +3,11 @@
   "title": "Pre-execution denial (RR-01 / EA-01)",
   "invariant": "Upload or job creation never authorizes execution; unauthorized or invalid proposals yield HOLD/DENY and worker_invoked=false",
   "status": "PASS",
-  "timestamp_utc": "2026-11-06T14:39:40Z",
+  "timestamp_utc": "2026-11-06T20:51:20Z",
   "environment": {
-    "host": "veritasetl-zero",
-    "python": "3.14.8",
-    "platform": "Linux-7.3.0-10-generic-x86_64-with-glibc2.44"
+    "host": "fedora",
+    "python": "3.14.10",
+    "platform": "Linux-7.2.15-200.fc44.x86_64-x86_64-with-glibc2.43"
   },
   "cases_passed": "4/4",
   "cases": [
@@ -56,7 +56,7 @@
       "title": "WorkProposal and ContextBinding created successfully without invoking worker",
       "passed": true,
       "observed": {
-        "proposal_id": "wp_954910091c284fcbbf96",
+        "proposal_id": "wp_f065705475af4de9a3e7",
         "worker_invoked": false
       }
     }
