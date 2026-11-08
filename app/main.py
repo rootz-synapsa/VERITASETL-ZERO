@@ -29,10 +29,14 @@ def judge_dashboard(request: Request):
         import csv
         c1_exc = list(csv.DictReader((c1_dir / "exceptions.csv").open(encoding="utf-8")))
 
-    return templates.TemplateResponse("dashboard.html", {
-        "request": request,
-        "gates": gates,
-        "updated_utc": updated_utc,
-        "c1_norm": c1_norm,
-        "c1_exc": c1_exc
-    })
+    return templates.TemplateResponse(
+        request=request,
+        name="dashboard.html",
+        context={
+            "request": request,
+            "gates": gates,
+            "updated_utc": updated_utc,
+            "c1_norm": c1_norm,
+            "c1_exc": c1_exc
+        }
+    )
