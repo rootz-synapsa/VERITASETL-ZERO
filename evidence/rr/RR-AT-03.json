@@ -3,7 +3,7 @@
   "title": "Direct worker bypass is blocked",
   "invariant": "EXEC-INV-01: no execution-capable interface is reachable except via GovernedDispatcher + WorkerAdmission",
   "status": "PASS",
-  "timestamp_utc": "2026-11-08T10:07:29Z",
+  "timestamp_utc": "2026-11-08T15:22:33Z",
   "environment": {
     "host": "veritasetl-zero",
     "python": "3.14.8",
@@ -112,7 +112,7 @@
       "title": "Static scan: no execution-capable reference outside dispatcher/admission",
       "passed": true,
       "observed": {
-        "files_scanned": 17,
+        "files_scanned": 18,
         "violations": []
       }
     },

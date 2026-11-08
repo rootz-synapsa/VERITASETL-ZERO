@@ -3,7 +3,7 @@
   "title": "TOCTOU and stale/revoked authority prevention (RR-02)",
   "invariant": "Authority granted at proposal time must be revalidated at dispatch boundary; changes or revocations block execution",
   "status": "PASS",
-  "timestamp_utc": "2026-11-08T10:07:29Z",
+  "timestamp_utc": "2026-11-08T15:22:33Z",
   "environment": {
     "host": "veritasetl-zero",
     "python": "3.14.8",

@@ -3,7 +3,7 @@
   "title": "Replay / duplicate dispatch is blocked",
   "invariant": "At most one successful dispatch per attempt; decisions, tokens and tickets are single-use",
   "status": "PASS",
-  "timestamp_utc": "2026-11-08T10:07:29Z",
+  "timestamp_utc": "2026-11-08T15:22:34Z",
   "environment": {
     "host": "veritasetl-zero",
     "python": "3.14.8",
@@ -55,7 +55,7 @@
       "passed": true,
       "observed": {
         "code": "TOKEN_REPLAY",
-        "token_sha256": "effb053a3032ce91f5275cdf489ce69b9f2463e5e45a5ee620068ee95a95ce31"
+        "token_sha256": "dba95fe2b0d4676009807f4ec26399bfb373ac43e77b2aa491d53dd34aca3f95"
       }
     },
     {

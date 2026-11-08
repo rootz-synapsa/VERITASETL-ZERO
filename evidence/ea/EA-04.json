@@ -3,7 +3,7 @@
   "title": "Independent business verifier (G5 false-completion rejection)",
   "invariant": "A clean worker return is a claim, not a verdict. Only the independent verifier, reading a sealed trusted reference and recomputing money with Decimal, may classify BUSINESS_VERIFIED.",
   "status": "PASS",
-  "timestamp_utc": "2026-11-08T10:07:28Z",
+  "timestamp_utc": "2026-11-08T15:22:33Z",
   "environment": {
     "host": "veritasetl-zero",
     "python": "3.14.8",
