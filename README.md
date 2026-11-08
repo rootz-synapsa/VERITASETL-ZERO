@@ -50,13 +50,34 @@ The worker must not authorize its own execution or certify its own output.
 
 ## Project Status
 
-Initial repository foundation.
+Evidence-backed P0 vertical slice completed on the tested Vultr VM.
 
-Runtime implementation and acceptance tests are not yet complete.
-Features will be marked as implemented only after corresponding tests
-and runtime evidence are available.
+Verified gates currently included in the public evidence index:
+
+- G1 Vultr Serverless Inference
+- RR-AT-01 through RR-AT-04: pre-execution denial, revalidation, bypass protection, and replay protection
+- EA-02/EA-03: tested Docker containment and sandbox lifecycle
+- EA-04: independent business verification and false-completion rejection
+
+The Judge Mode dashboard presents tested evidence and supplier-repair outputs as a verified fixture. A gate is not represented as PASS unless its corresponding runtime evidence is indexed and secret-scanned.
+
+RR-AT-05, RR-AT-06, and EA-05 must remain explicitly pending unless their corresponding runtime evidence is present.
+
+## Tested Claims and Limitations
+
+The evidence package supports the tested behaviors above on the recorded Vultr VM. It does not claim that Docker prevents every possible escape, that SHA-256 makes evidence universally immutable, or that untested failure modes are impossible.
+
+The dashboard is an evidence presentation view. It should not be described as a live upload endpoint unless a live upload route is separately deployed and tested.
 
 ## Development
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+Open http://127.0.0.1:8000/ for the Judge Mode evidence dashboard.
+
 
 Setup and deployment instructions will be added as the implementation
 progresses.
