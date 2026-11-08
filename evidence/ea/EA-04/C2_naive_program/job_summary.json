@@ -1,0 +1,12 @@
+{
+  "currency": "THB",
+  "input_rows": 14,
+  "input_sha256": "sha256:f00320608f5dfba161b85a7a139b79b6d4d3dac9bdaf0a949b8dc64260e1c2e6",
+  "normalized_rows": 14,
+  "normalized_total": "89611.10",
+  "program": "supplier_repair_naive_v0",
+  "review_reasons": {},
+  "review_rows": 0,
+  "self_certified": false,
+  "worker_claim": "EXECUTION_COMPLETE_UNVERIFIED"
+}

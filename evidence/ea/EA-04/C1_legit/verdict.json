@@ -1,0 +1,52 @@
+{
+  "classification": "BUSINESS_VERIFIED",
+  "reason": "ALL_BUSINESS_CHECKS_PASSED",
+  "checks": {
+    "oracle_integrity": true,
+    "input_covered_by_reference": true,
+    "artifacts_complete": true,
+    "row_accounting": true,
+    "normalized_values_match_reference": true,
+    "ambiguous_rows_routed_to_review": true,
+    "monetary_total_matches_reference": true,
+    "job_summary_consistent": true
+  },
+  "details": {
+    "row_accounting": {
+      "expected_input_rows": 14,
+      "normalized_rows": 6,
+      "review_rows": 8,
+      "duplicate_source_rows": [],
+      "missing_source_rows": [],
+      "unexpected_source_rows": []
+    },
+    "value_mismatches": [],
+    "routing_issues": [],
+    "rows_requiring_human_review": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "15"
+    ],
+    "monetary_total": {
+      "currency": "THB",
+      "expected": "64159.39",
+      "recomputed_from_normalized_csv": "64159.39",
+      "unparseable_amounts": 0
+    },
+    "job_summary_checks": {
+      "input_sha256": true,
+      "input_rows": true,
+      "normalized_rows": true,
+      "review_rows": true,
+      "normalized_total": true,
+      "no_self_certification": true
+    }
+  },
+  "oracle_sha256": "sha256:2831f9b995dbae1e72bd260ce74a8dc32d1cf9060ab7cec92fc9a765fd83852e",
+  "input_sha256": "sha256:f00320608f5dfba161b85a7a139b79b6d4d3dac9bdaf0a949b8dc64260e1c2e6"
+}

@@ -1,0 +1,13 @@
+{
+  "classification": "REQUIRES_REVIEW",
+  "reason": "INPUT_NOT_COVERED_BY_TRUSTED_REFERENCE",
+  "checks": {
+    "oracle_integrity": true,
+    "input_covered_by_reference": false
+  },
+  "details": {
+    "note": "the trusted reference does not cover this exact input; nothing can be certified"
+  },
+  "oracle_sha256": "sha256:2831f9b995dbae1e72bd260ce74a8dc32d1cf9060ab7cec92fc9a765fd83852e",
+  "input_sha256": "sha256:2a50ca7deef3f9c829ab5005ea95a9b41e02257632a9e8d29c947c93195eacf8"
+}

@@ -3,11 +3,11 @@
   "title": "Replay / duplicate dispatch is blocked",
   "invariant": "At most one successful dispatch per attempt; decisions, tokens and tickets are single-use",
   "status": "PASS",
-  "timestamp_utc": "2026-11-06T20:48:04Z",
+  "timestamp_utc": "2026-11-08T10:07:29Z",
   "environment": {
-    "host": "fedora",
-    "python": "3.14.10",
-    "platform": "Linux-7.2.15-200.fc44.x86_64-x86_64-with-glibc2.43"
+    "host": "veritasetl-zero",
+    "python": "3.14.8",
+    "platform": "Linux-7.3.0-10-generic-x86_64-with-glibc2.44"
   },
   "cases_passed": "7/7",
   "cases": [
@@ -55,7 +55,7 @@
       "passed": true,
       "observed": {
         "code": "TOKEN_REPLAY",
-        "token_sha256": "d1125d21b7b83fd1cb8826c314d0166ea390d10b902ad6e3602c77975dc54a2a"
+        "token_sha256": "effb053a3032ce91f5275cdf489ce69b9f2463e5e45a5ee620068ee95a95ce31"
       }
     },
     {

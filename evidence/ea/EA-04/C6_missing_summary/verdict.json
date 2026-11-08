@@ -1,0 +1,16 @@
+{
+  "classification": "FAILED_VERIFICATION",
+  "reason": "MISSING_REQUIRED_ARTIFACT",
+  "checks": {
+    "oracle_integrity": true,
+    "input_covered_by_reference": true,
+    "artifacts_complete": false
+  },
+  "details": {
+    "missing_artifacts": [
+      "job_summary.json"
+    ]
+  },
+  "oracle_sha256": "sha256:2831f9b995dbae1e72bd260ce74a8dc32d1cf9060ab7cec92fc9a765fd83852e",
+  "input_sha256": "sha256:f00320608f5dfba161b85a7a139b79b6d4d3dac9bdaf0a949b8dc64260e1c2e6"
+}

@@ -5,7 +5,6 @@ import base64
 import hashlib
 import hmac
 import json
-import math
 import secrets
 import sqlite3
 import threading
@@ -45,7 +44,7 @@ def _b64e(b: bytes) -> str:
 
 
 def _b64d(s: str) -> bytes:
-    return base64.b64decode(s + "=" * (-len(s) % 4), altchars=b"-_", validate=True)
+    return base64.urlsafe_b64decode(s + "=" * (-len(s) % 4))
 
 
 class WorkerAdmission:
@@ -55,7 +54,7 @@ class WorkerAdmission:
         self._cap_claimed = False
         self._ttl = token_ttl_s
         self._lock = threading.Lock()
-        self._live: dict[str, AdmissionTicket] = {}
+        self._live: set[str] = set()
         self.audit: list[dict] = []
         self._db = sqlite3.connect(db_path, check_same_thread=False, isolation_level=None)
         self._db.execute("PRAGMA journal_mode=WAL")
@@ -89,7 +88,7 @@ class WorkerAdmission:
         raise AdmissionDenied(code, detail)
 
     def admit(self, token, *, attempt_id: str, input_digest: str, program_digest: str) -> AdmissionTicket:
-        if not isinstance(token, str) or len(token) > 8192 or token.count(".") != 1:
+        if not isinstance(token, str) or token.count(".") != 1:
             self._deny("NO_VALID_DISPATCH_AUTHORIZATION", attempt_id)
         body, sig = token.split(".", 1)
         if not hmac.compare_digest(sig, self._sign(body)):
@@ -100,17 +99,7 @@ class WorkerAdmission:
             self._deny("MALFORMED_TOKEN", attempt_id)
         if not isinstance(p, dict) or any(k not in p for k in _REQUIRED):
             self._deny("MALFORMED_TOKEN", attempt_id)
-
-        # Validate every security-sensitive field before comparisons or DB use.
-        if not all(isinstance(p[k], str) and p[k] for k in ("aid", "did", "in", "pg", "nonce")):
-            self._deny("MALFORMED_TOKEN", attempt_id)
-        if len(p["nonce"]) > 128 or len(p["aid"]) > 256 or len(p["did"]) > 256:
-            self._deny("MALFORMED_TOKEN", attempt_id)
-        if not isinstance(p["exp"], (int, float)) or isinstance(p["exp"], bool):
-            self._deny("MALFORMED_TOKEN", attempt_id)
-        if not math.isfinite(p["exp"]):
-            self._deny("MALFORMED_TOKEN", attempt_id)
-        if time.time() > p["exp"]:
+        if time.time() > float(p["exp"]):
             self._deny("TOKEN_EXPIRED", attempt_id)
         if p["aid"] != attempt_id:
             self._deny("ATTEMPT_BINDING_MISMATCH", attempt_id)
@@ -124,7 +113,7 @@ class WorkerAdmission:
             except sqlite3.IntegrityError:
                 self._deny("TOKEN_REPLAY", attempt_id)
             ticket = AdmissionTicket(secrets.token_hex(16), attempt_id, p["did"], p["in"], p["pg"], time.time())
-            self._live[ticket.ticket_id] = ticket
+            self._live.add(ticket.ticket_id)
         self.audit.append({"ts": time.time(), "attempt_id": attempt_id, "result": "ADMITTED", "code": "OK"})
         return ticket
 
@@ -132,8 +121,7 @@ class WorkerAdmission:
         if not isinstance(ticket, AdmissionTicket):
             return False
         with self._lock:
-            issued = self._live.get(ticket.ticket_id)
-            if issued is None or issued != ticket:
-                return False
-            del self._live[ticket.ticket_id]
-            return True
+            if ticket.ticket_id in self._live:
+                self._live.discard(ticket.ticket_id)
+                return True
+            return False

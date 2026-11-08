@@ -1,0 +1,20 @@
+{
+  "currency": "THB",
+  "input_rows": 14,
+  "input_sha256": "sha256:f00320608f5dfba161b85a7a139b79b6d4d3dac9bdaf0a949b8dc64260e1c2e6",
+  "normalized_rows": 6,
+  "normalized_total": "64159.93",
+  "program": "supplier_repair_v1",
+  "review_reasons": {
+    "AMBIGUOUS_AMOUNT_FORMAT": 1,
+    "AMBIGUOUS_AMOUNT_PRECISION": 1,
+    "AMBIGUOUS_DATE": 1,
+    "DUPLICATE_SUPPLIER_ID": 2,
+    "INVALID_TAX_ID": 1,
+    "MISSING_AMOUNT": 1,
+    "UNSUPPORTED_CURRENCY": 1
+  },
+  "review_rows": 8,
+  "self_certified": false,
+  "worker_claim": "EXECUTION_COMPLETE_UNVERIFIED"
+}
